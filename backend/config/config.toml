@@ -1,0 +1,152 @@
+# 菜芦通用后台管理系统 —— 基础配置（所有 profile 共享）
+#
+# 加载顺序：config/config.toml → config/config-{profile}.toml → ALUN_* 环境变量
+# profile 选取：命令行 `profile=xxx` > ALUN_PROFILE > ALUN_ENV > 默认 dev
+#
+# 两个必须知道的坑：
+#   1. TOML 写错格式会静默回退到「全默认配置」，改完务必用 `cargo run -- print-config` 核对。
+#   2. profile 文件只能把字段覆盖成「与编译期默认值不同」的值，因此**关闭**某个功能要改基础
+#      配置，不要指望在 profile 里把基础配置的开关关掉。
+#
+# 敏感值（数据库密码、JWT 密钥）在生产环境必须通过环境变量注入，不要提交到仓库。
+
+app_name = "cailu"
+profile = "dev"
+
+[server]
+# 监听地址：端口号或 ip:port
+listen = "8023"
+
+[log]
+level = "info"
+format = "text"
+file_prefix = "cailu"
+
+[database]
+enabled = true
+type = "postgres"
+host = "127.0.0.1"
+port = 5432
+name = "cailu"
+# 本机（docker compose 的 alun-db-postgres-1）默认账号；生产环境用 ALUN_DATABASE_* 注入
+user = "alun"
+password = "alun"
+password_encrypted = false
+max_connections = 10
+# 启动期 bootstrap 并发（种子/字典预热/参数快照等）会同时借出多条连接；
+# 预热数对齐并发度，避免「空闲连接不足 → 现建连接」的反优化
+# （实测 min=2 时并发预热因建连等待反而更慢）。
+min_connections = 6
+connect_timeout = 10
+sql_logging = false
+# 慢查询日志阈值（毫秒），0 表示关闭
+slow_query_ms = 1000
+# prefer：优先 SSL、失败回退明文（本地 PG 未开 SSL 时必需）；生产环境改为 require
+ssl_mode = "prefer"
+
+[database.migration]
+enabled = true
+path = "migrations"
+auto_migrate = true
+
+[redis]
+# v1 单实例部署用进程内缓存即可；需要跨实例共享会话/黑名单时再开启
+enabled = false
+url = "redis://127.0.0.1:6379"
+max_connections = 10
+
+[cache]
+type = "local"
+max_capacity = 10000
+default_ttl = 3600
+
+[middleware]
+request_id = true
+request_log = true
+
+[middleware.request_log_config]
+# `/health` 为豁免前缀的根路径探针，用 `!` 前缀标记为绝对路径
+exclude_paths = ["!/health"]
+log_duration = true
+
+# 认证中间件：基础配置保持关闭，由各环境 profile 开启（enabled 与 jwt_secret 均为空则整层不挂载）。
+# 生产环境的 jwt_secret 必须由 ALUN_MIDDLEWARE_AUTH_JWT_SECRET 注入。
+[middleware.auth]
+enabled = false
+jwt_secret = ""
+# 默认按「不含 [router] prefix 前缀」书写；`!/health` 表示绝对路径豁免前缀
+ignore_paths = ["!/health", "/system/auth/login", "/system/auth/refresh"]
+access_token_expire_secs = 7200
+refresh_token_expire_secs = 604800
+
+[middleware.cors]
+enabled = true
+# 前端开发服务器（frontend / vite）默认端口
+allow_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+allow_methods = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+allow_headers = ["Content-Type", "Authorization", "X-Nonce", "x-idempotency-key"]
+allow_credentials = true
+max_age_secs = 86400
+
+[middleware.compression]
+enabled = true
+level = 6
+
+[middleware.security_headers]
+enabled = true
+
+# 限流：开发环境关闭，生产环境开启
+[middleware.rate_limit]
+enabled = false
+requests_per_window = 300
+window_secs = 60
+
+# 权限校验：宏规则（#[alun::permission]）不受此开关影响；此处只控制配置化的路径规则
+[middleware.permission]
+enabled = false
+rules = []
+
+[middleware.idempotency]
+enabled = false
+ttl_secs = 86400
+
+[middleware.nonce]
+enabled = false
+ttl_secs = 300
+
+[router]
+# 全局路由前缀：`App::scan()` 会把所有宏声明的路由整体嵌套到此前缀下，
+# 因此各处理器宏内路径按「不含前缀」书写（如 `/system/user/page`）。
+# 中间件 ignore_paths / exclude_paths 默认相对此前缀，绝对路径用 `!` 前缀标记。
+prefix = "/api"
+
+[router.not_found]
+enabled = true
+message = "请求的资源不存在"
+
+[plugins]
+enabled = []
+
+[plugins.notification]
+enabled = false
+
+[plugins.scheduler]
+# 0 表示使用框架默认值；调度器每个注册项一个调度循环，无 worker 池
+workers = 0
+
+[upload]
+path = "uploads"
+max_size_mb = 20
+
+[download]
+path = "downloads"
+
+[template]
+path = "templates"
+
+[static_files]
+# 前后端分离：静态资源由 nginx / 前端开发服务器托管，后端不接管
+path = "static"
+enabled = false
+
+[custom]

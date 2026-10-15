@@ -1,0 +1,6 @@
+/target
+/logs
+/uploads
+/downloads
+*.log
+.DS_Store

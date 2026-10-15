@@ -1,0 +1,53 @@
+{
+  "afterLogin": {
+    "path": "/dashboard",
+    "hasBasicLayout": true,
+    "overlay": false,
+    "bodyLen": 562
+  },
+  "light": {
+    "themeMode": "light",
+    "togglePresent": true,
+    "localStorageTheme": null,
+    "bodyBg": "rgb(238, 238, 238)",
+    "textColor": "rgba(0, 0, 0, 0.9)",
+    "brand7": "#0580a2",
+    "bgPage": "#eee",
+    "asideBg": "rgb(255, 255, 255)",
+    "headerBg": "rgb(255, 255, 255)",
+    "cardBg": "rgb(255, 255, 255)",
+    "btnBg": null,
+    "menuTheme": null,
+    "tag": "light",
+    "screenshot": "theme-light.png"
+  },
+  "dark": {
+    "themeMode": "dark",
+    "togglePresent": true,
+    "localStorageTheme": "dark",
+    "bodyBg": "rgb(24, 24, 24)",
+    "textColor": "rgba(255, 255, 255, 0.9)",
+    "brand7": "#0a7e9e",
+    "bgPage": "#181818",
+    "asideBg": "rgb(36, 36, 36)",
+    "headerBg": "rgb(36, 36, 36)",
+    "cardBg": "rgb(36, 36, 36)",
+    "btnBg": null,
+    "menuTheme": null,
+    "tag": "dark",
+    "screenshot": "theme-dark.png"
+  },
+  "backTheme": "light",
+  "checks": {
+    "themeTogglePresent": true,
+    "lightIsLight": true,
+    "darkIsDark": true,
+    "darkPersisted": true,
+    "bgChanged": true,
+    "brandStable": false,
+    "menuDark": false,
+    "roundTrip": true,
+    "noConsoleErrors": true
+  },
+  "errors": []
+}

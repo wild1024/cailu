@@ -1,0 +1,111 @@
+// 品牌主题（取色自 logo 渐变）。main.ts 中 TDesign 基础样式先加载、index.less 后加载，
+// 因此这里的 CSS 变量定义能正确覆盖 TDesign 默认主题色。
+@import './theme.less';
+
+// 全局基础样式：统一盒模型、字体与页面背景（配色取自 TDesign 设计变量）
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+  color: var(--td-text-color-primary);
+  background-color: var(--td-bg-color-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+// ---------- 卡片：统一圆角与轻投影，提升整体精致度 ----------
+.t-card {
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgb(15 30 70 / 6%);
+}
+
+// ---------- 列表页通用结构（与参考项目 cailu-xs-ui 对齐）----------
+// 查询表单行间距
+.t-form .t-row {
+  margin-bottom: var(--td-comp-margin-l);
+}
+
+// 横向排列按钮之间的间距
+.t-button + .t-button {
+  margin-left: var(--td-comp-margin-s);
+}
+
+// 带侧边栏布局时主区最小宽度，避免窄屏下表格被压扁
+.t-layout.t-layout--with-sider > .t-layout {
+  flex: 1;
+  min-width: 760px;
+}
+
+// 表格卡片：与查询卡片之间留出间距
+.table-card {
+  margin-top: 16px;
+}
+
+// 表格工具栏：左右分列，左侧放操作按钮，右侧放统计文案
+.table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-toolbar-count {
+  font-size: 13px;
+  color: var(--td-text-color-secondary);
+}
+
+// 多选列表：已选数量提示
+.selected-count {
+  display: inline-block;
+  margin-left: var(--td-comp-margin-l);
+  color: var(--td-text-color-secondary);
+}
+
+// 操作按钮组：右对齐
+.operation-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+// 长文本详情展示：换行且不产生横向滚动
+.detail-text {
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+// 查询表单末行按钮与上方间距（部分页面无标签行时视觉更平衡）
+.t-form .t-form__item:last-child {
+  margin-bottom: 0;
+}
+
+// ---------- 滚动条：细窄、低对比，避免默认样式割裂观感 ----------
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(0 0 0 / 16%);
+  border-radius: 4px;
+
+  &:hover {
+    background-color: rgb(0 0 0 / 26%);
+  }
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}

@@ -1,0 +1,13 @@
+# 本地杂项
+.DS_Store
+*.log
+
+# 后端构建产物与运行时目录（不入库，镜像内多阶段自建）
+/backend/target/
+/backend/logs/
+/backend/uploads/
+/backend/downloads/
+
+# 前端依赖与构建产物
+/frontend/node_modules/
+/frontend/dist/

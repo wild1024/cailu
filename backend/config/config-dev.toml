@@ -1,0 +1,24 @@
+# 开发环境覆盖配置（profile=dev）
+#
+# 只写「与基础配置/编译期默认值不同」的字段：基础配置里已是目标值的项不必重复。
+
+[log]
+# 开发期需要看到 SQL 与框架调试日志
+level = "debug"
+
+[database]
+# 打印每条 SQL，便于定位查询问题
+sql_logging = true
+slow_query_ms = 200
+
+# 开发期本机已启动 redis 容器，改用 redis 缓存以贴近生产验证缓存失效逻辑
+[cache]
+type = "redis"
+
+[redis]
+enabled = true
+
+[middleware.auth]
+# 开发环境开启认证，使用本地固定密钥；生产环境必须改用环境变量注入
+enabled = true
+jwt_secret = "cailu-dev-jwt-secret-please-change-in-production"

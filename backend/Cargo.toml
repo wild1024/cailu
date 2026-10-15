@@ -1,0 +1,52 @@
+[package]
+name = "cailu"
+description = "菜芦通用后台管理系统 —— 基于 Alun 框架 0.4.0"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.94.1"
+license = "MIT"
+publish = false
+
+
+[dependencies]
+# 门面依赖：只声明 alun 一个框架 crate，其余能力通过 feature 选择。
+# 不在 Cargo.toml 里出现 alun-db / alun-db-core / alun-web / alun-config，
+# 它们的能力由 `use alun::prelude::*` 转发（新框架铁律）。
+alun = { version = "0.4.0", features = [
+    # 数据库：驱动即能力，写 `postgres` 即可（它隐含 `db`）。
+    # `db` 本身**不含任何驱动**，单独列出只是显式表达「需要数据库能力」，可选。
+    "db",
+    "postgres",
+    # 缓存：JWT 黑名单、字典预热等依赖全局 cache()
+    "cache",
+    # 插件设施：定时任务调度器（scheduler）
+    "plugin",
+    # 文件存储后端：本地磁盘。切 MinIO 时改为 `fs-minio`（二者互斥，按需选一个）
+    "fs-local",
+    # 模型生态类型：DateTime / Uuid / JSON 列 / IP 地址（operation_logs.ip 为 INET 列）
+    "chrono",
+    "uuid",
+    "json",
+    "ipnetwork",
+    # HTML 净化：社区公告等富文本入库前过滤
+    "xss",
+] }
+
+# 工具集：门面 prelude 未转发 UA 解析，而 `auth_logs` 需要写入设备 / 浏览器 / 操作系统，
+# 故按「必要时可声明 alun-utils」的约定直接依赖（与 alun 同源，不会引入第二份实例）。
+alun-utils = { version = "0.4.0" }
+
+# Web 层：multipart 用于文件上传；中间件钩子需要 axum::Router
+axum = { version = "0.8", features = ["multipart"] }
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# 请求 DTO 校验：Version 与 alun 工作区保持一致（0.21）
+validator = { version = "0.21", features = ["derive"] }
+
+# 自定义插件需要实现 async trait：框架未把 async_trait 重导出，故在此显式声明
+async-trait = "0.1"
+# 文件秒传与完整性校验：上传时计算内容 SHA-256（见 support/file/handler.rs）
+sha2 = "0.10"

@@ -1,0 +1,33 @@
+// 结果页（403/404/500）共用样式
+.result-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+
+  &__content {
+    text-align: center;
+  }
+
+  &__icon {
+    color: var(--td-text-color-placeholder);
+
+    // 服务端异常使用错误色，突出严重程度
+    &--error {
+      color: var(--td-error-color);
+    }
+  }
+
+  &__code {
+    margin: 16px 0 8px;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--td-text-color-primary);
+  }
+
+  &__desc {
+    margin: 0 0 24px;
+    font-size: 14px;
+    color: var(--td-text-color-secondary);
+  }
+}

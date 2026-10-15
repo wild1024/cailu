@@ -1,0 +1,18 @@
+# Docker 构建上下文忽略清单（构建上下文 = cailu 项目根）
+#
+# 避免把本地构建产物 / 依赖目录卷入镜像构建，减小上下文体积。
+
+# 后端：编译产物不入上下文（镜像内多阶段编译，自建产物）
+backend/target
+backend/logs
+backend/uploads
+backend/downloads
+
+# 前端
+frontend/node_modules
+frontend/dist
+
+# 杂项
+.DS_Store
+*.log
+.git

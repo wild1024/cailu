@@ -1,0 +1,14 @@
+# 测试环境覆盖配置（profile=test）
+#
+# 与开发环境同一台 PG 实例，改用独立库名，避免测试数据污染开发库。
+
+[log]
+level = "info"
+
+[database]
+name = "cailu_test"
+sql_logging = true
+
+[middleware.auth]
+enabled = true
+jwt_secret = "cailu-test-jwt-secret-please-change-in-production"

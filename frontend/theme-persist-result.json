@@ -1,0 +1,11 @@
+{
+  "before": "dark",
+  "after": {
+    "mode": "dark",
+    "saved": "dark",
+    "bodyBg": "rgb(24, 24, 24)",
+    "layout": true
+  },
+  "restored": "light",
+  "ok": true
+}

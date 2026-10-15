@@ -1,0 +1,6 @@
+/node_modules
+/dist
+/dist.gz
+*.local
+.DS_Store
+*.log

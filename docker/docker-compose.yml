@@ -1,0 +1,66 @@
+# 菜芦通用后台系统 —— 开发环境依赖编排
+#
+# 用途：仅提供后端开发期所需的 PostgreSQL + Redis；
+# 后端（cargo run）/ 前端（pnpm dev）仍在本机运行，便于热重载与断点调试。
+# 数据库迁移由后端启动时自动执行（[database.migration] auto_migrate = true），
+# 因此这里不做任何初始化建表。
+#
+# 使用：
+#   cd docker
+#   docker compose up -d            # 拉起全部依赖
+#   docker compose down             # 停止
+#   docker compose down -v          # 停止并清空数据卷（慎用）
+#
+# 连接信息（与 backend/config/config.toml、config-dev.toml 保持一致）：
+#   PostgreSQL: postgres://alun:alun@127.0.0.1:5432/cailu
+#   Redis     : redis://127.0.0.1:6379
+
+# 独立项目名：与 docker-compose.prod.yml 分离，避免同目录下共享默认项目名
+# 导致 `docker compose down` 误删生产栈容器
+name: cailu-dev
+
+services:
+  postgres:
+    build:
+      # 通过镜像内置初始化脚本（见 docker/init/Dockerfile），
+      # 避免 bind 挂载在部分宿主机（/Volumes/*）上被误映射为目录
+      context: ./init
+      dockerfile: Dockerfile
+    image: cailu-dev-postgres
+    container_name: alun-db-postgres-1
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cailu
+      POSTGRES_USER: alun
+      POSTGRES_PASSWORD: alun
+      TZ: Asia/Shanghai
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alun -d cailu"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: alun-cache-redis-1
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata:
+    name: cailu-pgdata
+  redisdata:
+    name: cailu-redisdata

@@ -1,0 +1,42 @@
+# Cailu — 菜芦通用后台系统（基础版）
+
+> 基于 Rust + Alun 框架（alun）+ Vue 3 + TDesign 的通用后台底座。本仓库是**基础版**（用户 / 角色 / 菜单 / 字典 / 配置 / 文件 / 日志 / 在线用户 / 定时任务）。专业版 `cailu-pro` 与企业版 `cailu-saas` 为独立仓库。下方先给高频约定，再列应按需读取的关键文件。
+
+## Project map
+- [backend/](./backend/) : Rust + alun 后端（:8023，自动迁移）
+- [frontend/](./frontend/) : Vue 3.5 + TDesign 前端（:5173）
+- [docs/README.md](./docs/README.md) : 二开文档集总入口
+- [scripts/](./scripts/) : dev/check/build/deploy/init-db 一键脚本
+- [docker/](./docker/) : PG+Redis+后端+前端编排
+
+## Backend
+- [backend/Cargo.toml](./backend/Cargo.toml) : 依赖门面化——只声明 `alun`，能力靠 feature 点单
+- [backend/src/lib.rs](./backend/src/lib.rs) : 启动链 `App::new()?...scan().start()` 与分层约定
+- [backend/src/system/user/](./backend/src/system/user/) : 用户模块四件套范本
+- [backend/migrations/](./backend/migrations/) : SQL 迁移（`V{n}__*.up.sql`/`down.sql` + 种子 `S__*.sql`）；最大 `V0017`
+
+## Frontend
+- [frontend/package.json](./frontend/package.json) : Vue 3.5 + TDesign + Pinia + ECharts + Vite 6
+- [frontend/src/api/request.ts](./frontend/src/api/request.ts) : axios 封装 + 401 自动刷新
+- [frontend/src/router/index.ts](./frontend/src/router/index.ts) : 静态路由 + 权限守卫
+- [frontend/src/views/system/user/index.vue](./frontend/src/views/system/user/index.vue) : 列表页范本
+
+## Core conventions (read before editing)
+- 后端每模块固定四件套 `mod.rs+handler.rs+dto.rs+model.rs`，业务编排在 handler、数据访问在 model，**不设 service 层**。
+- 二开业务放 `business/` 容器（后端 `src/business/<模块>/`、前端 `api/business/`、`views/business/<模块>/`），不侵入 `system/`/`support/` 底座。
+- `Cargo.toml` 只声明 `alun`（必要时 `alun-utils`）；**禁止**写 `alun-db`/`alun-db-core`/`alun-web`/`alun-config`。业务代码统一 `use alun::prelude::*`。
+- feature 默认集是 `core`（非 full）。用 DB 须显式 `postgres`/`mysql`/`sqlite`。预设 `mini⊂lite⊂full`，常用 `lite`。点单：`fs-local`/`fs-minio`、`xlsx`、`sse`、`metrics`、`template`、`xss`。
+- 错误出口三名字：handler `ResResult<T>`、model `DbResult<T>`、启动/插件/任务 `alun::Result<T>`；handler 内直接 `?`，不要多余 `.map_err(ApiError::internal(...))`。
+- 路由宏路径**不含** `/api` 前缀（`[router] prefix` 注入）；`/health` 手动豁免。
+- 权限码 `{模块}:{资源}:{动作}`，与 `sys_menu.auth_code` 和 `#[alun::permission]` 一致；`SUPER_ADMIN` 短路。
+- 迁移号段（动手前 `ls` 核对）：基础版 `V0017` 封顶；已应用迁移指纹校验不可改。
+- 前端 API 路径必须写全 `/api/...`；TDesign Grid 是 **12 列制**（`t-col-xl-2`=6 个/行，`-xl-3`=4 个/行，`t-col-xs-24` 不存在）。
+
+## Gotchas (verify before assuming)
+- 接口/报表不显示：前端 api 漏 `/api` 前缀，命中 SPA fallback 返回 HTML。
+- TDesign 图标：`user-check`→`user-checked`、`speed`→`rocket`。
+
+## Detailed docs (fetch on demand)
+- [docs/README.md](./docs/README.md) : 二开文档集总入口（结构 / 设计亮点 / 前后端二开 / 编码规范 / AI 指引）
+- [skill/SKILL.md](./skill/SKILL.md) : 本仓库 AI 知识包（浓缩速查）
+- Alun 框架 0.3.0（crates.io 发布版） : 由 `backend/Cargo.toml` 的 `alun = { version = "0.3.0" }` 依赖，构建时自动从 crates.io 拉取，无需本地框架源码
