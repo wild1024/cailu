@@ -4,6 +4,20 @@
 
 本仓库对应 `菜芦系统` 中的**基础版 `cailu`**（独立项目，可单独开发、构建、部署）。
 
+## 运行效果图
+
+| 登录页 | 首页工作台 |
+|:---:|:---:|
+| ![登录页](docs/images/login.png) | ![首页工作台](docs/images/dashboard.png) |
+| **用户管理** | **角色管理** |
+| ![用户管理](docs/images/user_list.png) | ![角色管理](docs/images/role_list.png) |
+| **菜单管理** | **部门管理** |
+| ![菜单管理](docs/images/menu_tree.png) | ![部门管理](docs/images/dept_list.png) |
+| **字典管理** | **参数配置** |
+| ![字典管理](docs/images/dict.png) | ![参数配置](docs/images/config.png) |
+| **操作日志** | **在线用户** |
+| ![操作日志](docs/images/log.png) | ![在线用户](docs/images/online.png) |
+
 ## 目录结构
 
 ```text
@@ -102,3 +116,14 @@ pnpm build                                 # 类型检查 + 生产构建（dist/
 | 数据库 | `cailu` |
 | 后端端口 | `8023` |
 | 前端 dev 端口 | `5173` |
+
+## 许可证
+
+本项目采用 **Apache License 2.0**，全文见 [LICENSE](LICENSE)。
+
+选择 Apache 2.0 而非 MIT 的原因：在同样宽松（可商用、可修改、可闭源分发）的前提下，
+它**显式包含专利授权条款**（第 3 条），企业法务在评估「可自由采用」时更放心；
+而后台脚手架的价值来自被大量采用，宽松协议的传播成本最低。
+
+> 专业版 `cailu-pro` 与企业版 `cailu-saas` 是**独立仓库的专有软件**，不适用本许可证。
+
