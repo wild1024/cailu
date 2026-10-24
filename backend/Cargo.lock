@@ -54,9 +54,9 @@ dependencies = [
 
 [[package]]
 name = "alun"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3219e9c33d9d2dc3ef579c23c8cdcca819967d6959430dfb7f00cad15fec01a5"
+checksum = "5aef51783809a3f52f57c2bae9a83a7599ae0ea7242c3eed75dc5e81de013da2"
 dependencies = [
  "alun-cache",
  "alun-config",
@@ -79,9 +79,9 @@ dependencies = [
 
 [[package]]
 name = "alun-cache"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b391f37f6a35c5346d22a73d330421101fc7d8e6fc777d4d1993e3a121019473"
+checksum = "d6feaafb1cc9e8728cf4b658834b61503a06e301871eb3652529a3b8b55ca68a"
 dependencies = [
  "alun-config",
  "alun-core",
@@ -96,9 +96,9 @@ dependencies = [
 
 [[package]]
 name = "alun-config"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c3e816549a8324fab42674d9eeb1369108105d361d8b853367b760b348554973"
+checksum = "2df7f2f86f1795ea51bfb6cf2c8ed418e7d6298e8aa18e7114ecfeeb3569945d"
 dependencies = [
  "dashmap",
  "parking_lot",
@@ -110,9 +110,9 @@ dependencies = [
 
 [[package]]
 name = "alun-core"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e815bd77522cd0d51dae5ff50ddbd8336583b616f37a1a5194253ee2dd78f24a"
+checksum = "d929681f45156f5941b215c15e2baab01d27e4e588e189af535ecfb576ccf2eb"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -126,9 +126,9 @@ dependencies = [
 
 [[package]]
 name = "alun-db"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3825f048589e1cc0929250be4c61fd55705350232ca4fea37356487b31d7b252"
+checksum = "a24fef2b9eca73eb217bb1a48c551638f0ac3b9d034c3c78ea6158f53e8bacb6"
 dependencies = [
  "alun-db-build",
  "alun-db-core",
@@ -147,15 +147,15 @@ dependencies = [
 
 [[package]]
 name = "alun-db-build"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e305bb7b2b141cc66e8407cd8d0d281326a31becdf820a432ca15bb6fc2e372c"
+checksum = "a3c27c72cb20f04a2b2851a3c822f0922e112f25864fda6e9f3b5dba9ea9b84c"
 
 [[package]]
 name = "alun-db-core"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7262c68e8e0e0667e9f658a1da684a47c68116988ab4d1ca4c0ca3b2cf737004"
+checksum = "91ccf0931a2a31c634c8178d95eb17e319dd970d425532e0bab41f04bb0ae18c"
 dependencies = [
  "async-trait",
  "chrono",
@@ -167,9 +167,9 @@ dependencies = [
 
 [[package]]
 name = "alun-db-driver-postgres"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d55852f20ef8dd631ed77ed628d180eb4a5ce55ca98fa04ab529b9a8a767fb4"
+checksum = "9c0e1b92fb981a14908d2463021c8c62b756e78e3e13440cb5c3dd6077171064"
 dependencies = [
  "alun-db-core",
  "alun-db-sql",
@@ -180,9 +180,9 @@ dependencies = [
 
 [[package]]
 name = "alun-db-macro"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2ddbecf2dfc60c899b2dccf3bd71629868d5c69cd1b9af65b6326aef83600f0d"
+checksum = "bca81dd4fc554eb9304959b533b91bd7bb26bb004702ef896bc06346e6ce47d9"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -192,18 +192,18 @@ dependencies = [
 
 [[package]]
 name = "alun-db-sql"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a74ffd7fcd390d9cd3e35828fa36fa520eda1c0de9fc076deff6dd20d3cd0f2"
+checksum = "4ad95df2aff45bb81ee99d4429b2e5f4f70a518f479528b41a925c63ff81ec21"
 dependencies = [
  "alun-db-core",
 ]
 
 [[package]]
 name = "alun-fs"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b9112b961936a5f645d2cfdcbb8a366ff76ffdf30c226960129ad7d40358f058"
+checksum = "86e7fb7091645ef4b733bcb030ad9a86b6975c765cb7fdc1ee662486253f4a6c"
 dependencies = [
  "alun-config",
  "alun-core",
@@ -222,9 +222,9 @@ dependencies = [
 
 [[package]]
 name = "alun-log"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "100bd4cb1511bd1ec95454e84fdf402fd1fdf3bb37f2daba6454ec7db320d9c7"
+checksum = "834b82bf383466358bdb59a355b4d3a4b3fff0c04fa66facac981d1312c32dc8"
 dependencies = [
  "alun-config",
  "serde",
@@ -235,9 +235,9 @@ dependencies = [
 
 [[package]]
 name = "alun-macros"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "925f9667ec377a9b11ff596ca049e5d19143a49c95fdf8803ae47c50915903fe"
+checksum = "100092ce858ed4aec3ae17552cb368af3f9190379373d7867e4a13fc6a090f9f"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -246,9 +246,9 @@ dependencies = [
 
 [[package]]
 name = "alun-plugin"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "002bf1e00bb838ec4bcbb992f80ca931c80fa6d2276e81c5fa99e39a880aa0e8"
+checksum = "9a0b79d0428d025227cd93ba6a28b0c1c80fa05101c39b52d56ea36060499a17"
 dependencies = [
  "alun-cache",
  "alun-config",
@@ -266,9 +266,9 @@ dependencies = [
 
 [[package]]
 name = "alun-utils"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2d6bdd7f3b97af81e74a317624062e18b7b40eb4c5aa3370e7bb2c34c84a4f42"
+checksum = "44ca6d71c335467b4c44d9cde48e5fe4929abd1a11a5578e39882c8b83804876"
 dependencies = [
  "aes-gcm",
  "alun-core",
@@ -295,9 +295,9 @@ dependencies = [
 
 [[package]]
 name = "alun-web"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "107690fd95724c3c771392764cec1c11cd9c9b2e272c063def5b429d01695420"
+checksum = "8e8f2a3a968141db9336207ad7094ed36ec57c4753b216cb0d9cbc508efb1d48"
 dependencies = [
  "alun-cache",
  "alun-config",
@@ -1096,7 +1096,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]

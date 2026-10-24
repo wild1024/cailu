@@ -1,7 +1,7 @@
 # 菜芦通用后台系统 —— 后端镜像（容器内多阶段编译）
 #
 # 说明：
-#   * 后端通过 crates.io 依赖 Alun 框架发布版（alun 0.4.0），构建时由 cargo 自动拉取，
+#   * 后端通过 crates.io 依赖 Alun 框架发布版（alun 0.4.2），构建时由 cargo 自动拉取，
 #     无需本地框架源码，也不再需要 scripts/deploy.sh 暂存本地框架源码的步骤；
 #   * 编译在容器内完成，产物为 Linux 二进制，与宿主机（macOS/Windows）无关。
 #

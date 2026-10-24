@@ -1,14 +1,14 @@
 # 菜芦通用后台系统 —— 生产编排（postgres + redis + backend + frontend）
 #
 # 前置：直接执行 scripts/deploy.sh（会先构建前端 dist、构建镜像并拉起本编排）；
-# 后端镜像在容器内多阶段编译，通过 crates.io 依赖 Alun 框架 0.4.0，无需本地框架源码（见 docker/backend/Dockerfile）。
+# 后端镜像在容器内多阶段编译，通过 crates.io 依赖 Alun 框架 0.4.2，无需本地框架源码（见 docker/backend/Dockerfile）。
 #
 # 使用：
 #   cd cailu/cailu
 #   bash scripts/deploy.sh
 #   或手动分步：
 #   bash scripts/build.sh                                   # 前端 dist（后端镜像不依赖本机二进制）
-#   后端通过 crates.io 依赖 Alun 框架 0.4.0，构建时由 cargo 自动拉取，无需本地框架源码、无需暂存步骤
+#   后端通过 crates.io 依赖 Alun 框架 0.4.2，构建时由 cargo 自动拉取，无需本地框架源码、无需暂存步骤
 #   docker compose -f docker/docker-compose.prod.yml up -d --build
 #
 # 生产敏感值必须通过环境变量注入（不落文件）：

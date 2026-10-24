@@ -1,6 +1,6 @@
 [package]
 name = "cailu"
-description = "菜芦通用后台管理系统 —— 基于 Alun 框架 0.4.0"
+description = "菜芦通用后台管理系统 —— 基于 Alun 框架 0.4.2"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.94.1"
@@ -12,7 +12,7 @@ publish = false
 # 门面依赖：只声明 alun 一个框架 crate，其余能力通过 feature 选择。
 # 不在 Cargo.toml 里出现 alun-db / alun-db-core / alun-web / alun-config，
 # 它们的能力由 `use alun::prelude::*` 转发（新框架铁律）。
-alun = { version = "0.4.0", features = [
+alun = { version = "0.4.2", features = [
     # 数据库：驱动即能力，写 `postgres` 即可（它隐含 `db`）。
     # `db` 本身**不含任何驱动**，单独列出只是显式表达「需要数据库能力」，可选。
     "db",
@@ -34,7 +34,7 @@ alun = { version = "0.4.0", features = [
 
 # 工具集：门面 prelude 未转发 UA 解析，而 `auth_logs` 需要写入设备 / 浏览器 / 操作系统，
 # 故按「必要时可声明 alun-utils」的约定直接依赖（与 alun 同源，不会引入第二份实例）。
-alun-utils = { version = "0.4.0" }
+alun-utils = { version = "0.4.2" }
 
 # Web 层：multipart 用于文件上传；中间件钩子需要 axum::Router
 axum = { version = "0.8", features = ["multipart"] }
