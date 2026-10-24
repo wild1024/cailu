@@ -117,6 +117,12 @@ pnpm build                                 # 类型检查 + 生产构建（dist/
 | 后端端口 | `8023` |
 | 前端 dev 端口 | `5173` |
 
+## 联系方式
+
+技术交流、问题反馈或商务合作，欢迎扫码添加微信：
+
+<img src="docs/images/wechat-qrcode.jpg" alt="微信二维码" width="180" />
+
 ## 许可证
 
 本项目采用 **Apache License 2.0**，全文见 [LICENSE](LICENSE)。
