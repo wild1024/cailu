@@ -40,6 +40,9 @@
           </t-breadcrumb-item>
         </t-breadcrumb>
 
+        <!-- 配色方案快捷切换（用户不选则完全不影响界面，走 theme.less 原有配色） -->
+        <palette-switch />
+
         <t-tooltip :content="setting.themeMode === 'dark' ? '切换亮色主题' : '切换暗色主题'">
           <t-button
             class="basic-layout__theme-toggle"
@@ -76,6 +79,7 @@ import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { DialogPlugin, type DropdownOption } from 'tdesign-vue-next';
 import SideMenuItem from '@/layouts/components/SideMenuItem.vue';
+import PaletteSwitch from '@/layouts/components/PaletteSwitch.vue';
 import { useUserStore } from '@/stores/user';
 import { useSettingStore } from '@/stores/setting';
 import { normalizeMenuPath, collectLeafPaths } from '@/utils/menu';
@@ -83,6 +87,7 @@ import { normalizeMenuPath, collectLeafPaths } from '@/utils/menu';
 /** 用户下拉菜单项 */
 const userActions: DropdownOption[] = [
   { content: '个人中心', value: 'profile' },
+  { content: '外观设置', value: 'preference' },
   { content: '退出登录', value: 'logout' },
 ];
 
@@ -161,6 +166,10 @@ function onMenuChange(value: unknown): void {
 function onUserAction(item: DropdownOption): void {
   if (item.value === 'profile') {
     void router.push('/user/profile');
+    return;
+  }
+  if (item.value === 'preference') {
+    void router.push('/user/preference');
     return;
   }
   if (item.value === 'logout') {
@@ -313,7 +322,21 @@ async function doLogout(): Promise<void> {
   }
 
   &__avatar {
-    background: linear-gradient(135deg, #4b8bff 0%, #7b5cff 100%);
+    // 默认保持上游原有的蓝紫渐变（不改变原界面）
+    background-image: linear-gradient(135deg, #4b8bff 0%, #7b5cff 100%);
+  }
+
+  // 用户主动选择配色方案后（<html data-palette> 由 usePalette 写入），
+  // 头像改用该方案的压暗版主色纯色底：若沿用「主色→强调色」渐变，强调色多为浅色，
+  // 白色首字在渐变浅端只有 1.5~2.0 对比度，看起来发糊。
+  :global(html[data-palette]) &__avatar {
+    background-image: none;
+    background-color: var(--app-brand-strong, var(--td-brand-color-8));
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%);
+    text-shadow: 0 1px 1px rgb(0 0 0 / 20%);
   }
 
   &__username {

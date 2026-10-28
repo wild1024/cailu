@@ -496,7 +496,8 @@ onMounted(() => {
     align-items: center;
     justify-content: space-between;
     padding: 24px 28px;
-    color: #fff;
+    // 文字色跟随配色方案（未选择方案时回落白色，与升级前一致）
+    color: var(--app-on-gradient, #ffffff);
     border-radius: 12px;
     background: var(--app-gradient-brand);
     box-shadow: 0 6px 20px rgb(59 109 255 / 24%);
@@ -511,12 +512,16 @@ onMounted(() => {
   &__subtitle {
     margin: 0;
     font-size: 13px;
-    color: rgb(255 255 255 / 82%);
+    // 副标题跟随配色：渐变终点变浅时由变量注入深油墨；未选择方案时保持原 82% 白
+    color: var(--app-on-gradient, #ffffff);
+    opacity: 0.82;
   }
 
   &__banner-icon {
     font-size: 72px;
-    color: rgb(255 255 255 / 18%);
+    // 图标落在横幅右侧（配色方案下渐变右端可能变浅），改用跟随变量的深油墨；默认仍是 18% 白
+    color: var(--app-on-gradient-soft, #ffffff);
+    opacity: 0.18;
   }
 
   // t-row 用 gutter 负边距（-8px）抵消列 padding，两栏基准宽度需按内容盒计算，

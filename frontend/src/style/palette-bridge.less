@@ -1,0 +1,56 @@
+/**
+ * 配色桥接层（palette bridge）
+ *
+ * 为什么需要这一层：
+ *   TDesign 把「主色上的文字」写死成 `#fff`（`--td-text-color-anti`），
+ *   而本项目可选的 8 套主色都是偏柔和的中低明度色，白字直接放上去多数达不到 4.5:1。
+ *   配色引擎已经算好了两种模式下的正确文字色：
+ *     · `--app-on-brand`      —— 主色**面**上的文字色（浅色模式为白、深色模式为深色油墨）
+ *     · `--app-brand-on-tint` —— 主色**浅底**（brand-1 色块）上的品牌文字色
+ *   这里只做一件事：把这两个 token 接到 TDesign 的主按钮 / 实心标签 / 浅色标签上。
+ *
+ * ⚠ **每个 `var()` 都必须带 fallback**：
+ *   本功能的默认语义是「用户不选方案 = 不注入任何变量」。此时 `--app-on-brand`
+ *   根本不存在，若写成 `color: var(--app-on-brand)`，浏览器会命中
+ *   *invalid at computed-value time*；而 `color` 是继承属性，最终会退化成
+ *   「继承父级颜色」（Chromium 实测 body `#333` 时主按钮文字变 `rgb(51,51,51)`，
+ *   在品牌色 `#0580a2` 上对比度仅 2.78，远低于上游白字的 4.55）。
+ *   所以 fallback 一律写成上游原值：`#ffffff` / `var(--td-brand-color)`。
+ *
+ * 注意：这里**只改颜色**，不改任何组件结构、尺寸、间距，业务页面代码零改动。
+ *   达标状态由配色引擎负责（8 套方案 × 明暗 16 组，见 `pnpm check:palettes`）。
+ */
+
+// 主按钮（实心）：底色是品牌面，文字用引擎推导的 on-brand 色；未选方案时回落到上游白字
+.t-button--theme-primary.t-button--variant-base {
+  color: var(--app-on-brand, #ffffff);
+}
+
+// 禁用态主按钮：底色退成品牌浅色块，白字在新底色上不可读，改用占位文字色
+.t-button--theme-primary.t-button--variant-base:disabled,
+.t-button--theme-primary.t-button--variant-base.t-is-disabled {
+  color: var(--td-text-color-placeholder);
+}
+
+// 实心标签：同上
+.t-tag--primary.t-tag--dark {
+  color: var(--app-on-brand, #ffffff);
+}
+
+// 浅色标签：底色是 brand 浅色块，文字用「品牌色在浅块上」的达标色；
+// 未选方案时回落到 TDesign 原本的品牌文字色（与上游表现一致）
+.t-tag--primary.t-tag--light {
+  color: var(--app-brand-on-tint, var(--td-brand-color));
+}
+
+/**
+ * 侧栏选中菜单项。
+ *
+ * 深色模式下选中项底色是提亮后的主色（一块亮面），TDesign 默认把文字写死成白色，
+ * 在柔和主色上只有 2.2 左右；这里换成引擎推导的 on-brand 色（深油墨）。
+ * 这段规则只在**已选方案且深色模式**下命中（`data-palette-mode` 属性），
+ * 未选方案时 `<html>` 上没有该属性，整段规则不生效，与升级前完全一致。
+ */
+:root[data-palette-mode='dark'] .t-menu__item.t-is-active .t-menu__content {
+  color: var(--app-on-brand, #ffffff);
+}

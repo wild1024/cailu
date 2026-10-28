@@ -102,6 +102,15 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '个人中心' },
       },
       {
+        // 外观设置（配色方案 × 明暗模式）：纯前端 localStorage 持久化，不涉及后端数据，
+        // 因此不挂权限码 —— 任何登录用户都可以自选配色，也不需要后端补种权限点。
+        // 该页面不进侧栏菜单，入口在顶栏「配色方案」面板与用户下拉菜单。
+        path: 'user/preference',
+        name: 'UserPreference',
+        component: () => import('@/views/user/preference.vue'),
+        meta: { title: '外观设置' },
+      },
+      {
         path: 'result/403',
         name: 'Result403',
         component: () => import('@/views/result/403/index.vue'),

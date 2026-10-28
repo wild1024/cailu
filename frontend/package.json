@@ -14,7 +14,9 @@
     "build": "vue-tsc --noEmit && vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "check:palettes": "node scripts/check-palettes.mjs",
+    "check": "pnpm check:palettes && pnpm typecheck"
   },
   "dependencies": {
     "axios": "~1.15.0",
