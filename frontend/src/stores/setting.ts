@@ -40,7 +40,17 @@ export const useSettingStore = defineStore('setting', () => {
 
   /** 切换明暗主题并持久化 */
   function toggleTheme(): void {
-    themeMode.value = themeMode.value === 'dark' ? 'light' : 'dark';
+    setThemeMode(themeMode.value === 'dark' ? 'light' : 'dark');
+  }
+
+  /**
+   * 设置明暗主题并持久化。
+   *
+   * 外观设置页的「浅色/深色」是单选而不是 toggle，需要显式指定目标值；
+   * 与 toggleTheme 共用同一条落盘逻辑，避免两处各写一份。
+   */
+  function setThemeMode(mode: ThemeMode): void {
+    themeMode.value = mode === 'dark' ? 'dark' : 'light';
     applyTheme();
     localStorage.setItem(SETTING_KEY, JSON.stringify({ themeMode: themeMode.value, sideCompact: sideCompact.value }));
   }
@@ -56,5 +66,5 @@ export const useSettingStore = defineStore('setting', () => {
     applyTheme();
   }
 
-  return { themeMode, sideCompact, toggleTheme, toggleCompact, initTheme };
+  return { themeMode, sideCompact, toggleTheme, setThemeMode, toggleCompact, initTheme };
 });

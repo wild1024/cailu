@@ -2,6 +2,10 @@
 // 因此这里的 CSS 变量定义能正确覆盖 TDesign 默认主题色。
 @import './theme.less';
 
+// 配色方案桥接层：把「主色上的文字」接到配色引擎推导的 token 上
+// （theme.less 保留为兜底默认值，本文件只补配色相关的文字色映射）
+@import './palette-bridge.less';
+
 // 全局基础样式：统一盒模型、字体与页面背景（配色取自 TDesign 设计变量）
 
 * {
