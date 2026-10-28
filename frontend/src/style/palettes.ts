@@ -30,7 +30,21 @@ export type PaletteId =
   | 'violet-honey'
   | 'jade-crimson'
   | 'glaze-teal'
-  | 'inkberry';
+  | 'inkberry'
+  | 'clear-sky'
+  | 'peach-sky'
+  | 'cream-celadon'
+  | 'celadon-mist'
+  | 'spring-sugar'
+  | 'coral-bay'
+  | 'peacock'
+  | 'amber'
+  | 'jade'
+  | 'rouge'
+  | 'grape'
+  | 'moon-white'
+  | 'clear-mist'
+  | 'deep-blue-orange';
 
 /** 一套方案的基准色（5 个色值 + 文案） */
 export interface PaletteDef {
@@ -145,6 +159,146 @@ export const PALETTES: readonly PaletteDef[] = [
     merge: '#EDEBE9',
     border: '#D3C4CB',
     accent: '#484D61',
+  },
+  {
+    id: 'clear-sky',
+    name: '晴空奶黄',
+    note: '晴空奶黄 —— #3674B5 × #F5F0CD × #FADA7A',
+    brand: '#3674B5',
+    brandLight: '#578FCA',
+    merge: '#F5F0CD',
+    border: '#E4DDB4',
+    accent: '#FADA7A',
+  },
+  {
+    id: 'peach-sky',
+    name: '蜜桃晴空',
+    note: '蜜桃晴空 —— #E78F81 × #FFF5CD × #B7E0FF',
+    brand: '#E78F81',
+    brandLight: '#FFCFB3',
+    merge: '#FFF5CD',
+    border: '#F2DDBB',
+    accent: '#B7E0FF',
+  },
+  {
+    id: 'cream-celadon',
+    name: '奶黄青瓷',
+    note: '奶黄青瓷 —— #7EACB5 × #FFF4EA × #C96868',
+    brand: '#7EACB5',
+    brandLight: '#BFD5DA',
+    merge: '#FFF4EA',
+    border: '#FADFA1',
+    accent: '#C96868',
+  },
+  {
+    id: 'celadon-mist',
+    name: '青瓷粉雾',
+    note: '青瓷粉雾 —— #789DBC × #FEF9F2 × #A6BBCF',
+    brand: '#789DBC',
+    brandLight: '#C9E9D2',
+    merge: '#FEF9F2',
+    border: '#FFE3E3',
+    accent: '#A6BBCF',
+  },
+  {
+    id: 'spring-sugar',
+    name: '春日糖光',
+    note: '春日糖光 —— #A3CCDA × #F8F7BA × #BDE3C3',
+    brand: '#A3CCDA',
+    brandLight: '#BDE3C3',
+    merge: '#F8F7BA',
+    border: '#F5D2D2',
+    accent: '#BDE3C3',
+  },
+  {
+    id: 'coral-bay',
+    name: '珊瑚浅湾',
+    note: '珊瑚浅湾 —— #FF6969 × #FFF9DE × #A6D0DD',
+    brand: '#FF6969',
+    brandLight: '#FFD3B0',
+    merge: '#FFF9DE',
+    border: '#F3E4BC',
+    accent: '#A6D0DD',
+  },
+  {
+    id: 'peacock',
+    name: '孔雀蓝',
+    note: '孔雀蓝 —— #0F7C90 × #F4F7F8 × #C58A2A',
+    brand: '#0F7C90',
+    brandLight: '#7BB4BE',
+    merge: '#F4F7F8',
+    border: '#6C7278',
+    accent: '#C58A2A',
+  },
+  {
+    id: 'amber',
+    name: '琥珀金',
+    note: '琥珀金 —— #C58A2A × #F4F7F8 × #0F7C90',
+    brand: '#C58A2A',
+    brandLight: '#DDBF87',
+    merge: '#F4F7F8',
+    border: '#6E5846',
+    accent: '#0F7C90',
+  },
+  {
+    id: 'jade',
+    name: '翡翠青',
+    note: '翡翠青 —— #5E9B84 × #EEF1EB × #CBB28A',
+    brand: '#5E9B84',
+    brandLight: '#A7C9BE',
+    merge: '#EEF1EB',
+    border: '#5D6965',
+    accent: '#CBB28A',
+  },
+  {
+    id: 'rouge',
+    name: '胭脂红',
+    note: '胭脂红 —— #A94A63 × #F5F1F1 × #C58A2A',
+    brand: '#A94A63',
+    brandLight: '#CC94A3',
+    merge: '#F5F1F1',
+    border: '#82727A',
+    accent: '#C58A2A',
+  },
+  {
+    id: 'grape',
+    name: '葡萄紫',
+    note: '葡萄紫 —— #6F52C9 × #F3EEF7 × #D7B15A',
+    brand: '#6F52C9',
+    brandLight: '#A896DE',
+    merge: '#F3EEF7',
+    border: '#8FA9C7',
+    accent: '#D7B15A',
+  },
+  {
+    id: 'moon-white',
+    name: '月白',
+    note: '月白 —— #B8C7D3 × #F4F7F8 × #D8C8A9',
+    brand: '#B8C7D3',
+    brandLight: '#D6DADF',
+    merge: '#F4F7F8',
+    border: '#C9CFD5',
+    accent: '#D8C8A9',
+  },
+  {
+    id: 'clear-mist',
+    name: '霁青',
+    note: '霁青 —— #7FA7C7 × #F4F7F8 × #C58A2A',
+    brand: '#7FA7C7',
+    brandLight: '#B9CDDF',
+    merge: '#F4F7F8',
+    border: '#97A2AD',
+    accent: '#C58A2A',
+  },
+  {
+    id: 'deep-blue-orange',
+    name: '深蓝与橙',
+    note: '深蓝与橙 —— #112532 × #F4F7F8 × #E0680E',
+    brand: '#112532',
+    brandLight: '#88A5B7',
+    merge: '#F4F7F8',
+    border: '#5F7583',
+    accent: '#E0680E',
   },
 ] as const;
 
@@ -357,28 +511,26 @@ export function ensureContrast(fg: string, bg: string, ratio: number): string {
  * 二、色阶推导
  * ========================================================================== */
 
-/** 亮色模式：brand-1~4 的明度取值（L%），5 级起由色板给定的浅色接管 */
-const LIGHT_TINTS = [96, 92, 87, 80];
-
-/**
- * 生成亮色模式 brand 色阶 1~10。
- *
- * 两个锚点：`brand-5` 用色板给定的浅色（原值不动的浅色），`brand-7` 用色板主色。
- * 1~4 级在 brand-5 之上按明度阶梯铺开，6 级取 5/7 的明度中点，8~10 级按主色压暗。
- * 色相全程锁定主色色相，饱和度只在最浅的四级略微收敛（避免近白色发脏）。
- */
 export function brandScaleLight(brand: string, brandLight: string): string[] {
   const main = hexToHsl(brand);
   const light = hexToHsl(brandLight);
-  // 浅色必须比主色亮，否则色阶会乱序（脏数据兜底）
-  const l5 = clamp(Math.max(light.l, main.l + 6), 55, 82);
+  // brand-5 始终使用**用户给定的浅色**（配色方案必须忠于给定色板）。
+  // 若给定浅色比主色还暗（脏数据），仍以给定值为准，只保证 1~4 级在它之上铺开。
+  const l5 = clamp(light.l, 8, 97);
+  // 1~4 级相对 brand-5 递增提亮（而不是用固定阶梯），这样即使 brandLight 很亮（L>82%），
+  // brand-1..5 依然是从亮到暗的层次，不会出现 brand-4 比 brand-5 更暗的逆序。
+  const l4 = clamp(l5 + 2, 10, 98);
+  const l3 = clamp(l5 + 5, 12, 99);
+  const l2 = clamp(l5 + 8, 14, 99.5);
+  const l1 = clamp(l5 + 12, 16, 99.8);
   const ladder = [
-    LIGHT_TINTS[0],
-    LIGHT_TINTS[1],
-    LIGHT_TINTS[2],
-    LIGHT_TINTS[3],
+    l1,
+    l2,
+    l3,
+    l4,
     l5,
-    (l5 + main.l) / 2,
+    // 6 级取 5/7 中点，但必须严格夹在两者之间
+    clamp((l5 + main.l) / 2, Math.min(l5, main.l) + 1, Math.max(l5, main.l) - 1),
     main.l,
     main.l - 9,
     main.l - 18,
@@ -386,7 +538,8 @@ export function brandScaleLight(brand: string, brandLight: string): string[] {
   ];
   return ladder.map((l, index) => {
     if (index === 4) {
-      return light.l === l5 ? brandLight.toLowerCase() : withL(main, l, main.s);
+      // 无条件使用给定浅色（不再要求 light.l === l5，那是旧实现的限制）
+      return brandLight.toLowerCase();
     }
     if (index === 6) {
       return brand.toLowerCase();

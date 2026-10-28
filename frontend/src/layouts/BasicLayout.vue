@@ -322,7 +322,21 @@ async function doLogout(): Promise<void> {
   }
 
   &__avatar {
-    background: linear-gradient(135deg, #4b8bff 0%, #7b5cff 100%);
+    // 默认保持上游原有的蓝紫渐变（不改变原界面）
+    background-image: linear-gradient(135deg, #4b8bff 0%, #7b5cff 100%);
+  }
+
+  // 用户主动选择配色方案后（<html data-palette> 由 usePalette 写入），
+  // 头像改用该方案的压暗版主色纯色底：若沿用「主色→强调色」渐变，强调色多为浅色，
+  // 白色首字在渐变浅端只有 1.5~2.0 对比度，看起来发糊。
+  :global(html[data-palette]) &__avatar {
+    background-image: none;
+    background-color: var(--app-brand-strong, var(--td-brand-color-8));
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%);
+    text-shadow: 0 1px 1px rgb(0 0 0 / 20%);
   }
 
   &__username {
